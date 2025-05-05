@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>URL Shortener</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: #243b55;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-container {
+      background: #1f1f1f;
+      padding: 40px 50px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      width: 100%;
+      max-width: 450px;
+      transition: transform 0.3s ease;
+      color: #f1f1f1;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+      font-size: 28px;
+      color: #ffffff;
+    }
+
+    input[type="url"] {
+      width: 100%;
+      padding: 15px 20px;
+      margin-bottom: 25px;
+      border: none;
+      border-radius: 12px;
+      background: #2e2e2e;
+      color: #f1f1f1;
+      font-size: 16px;
+      transition: box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    input[type="url"]::placeholder {
+      color: #aaa;
+    }
+
+    input[type="url"]:focus {
+      outline: none;
+      box-shadow: 0 0 6px rgba(100, 181, 246, 0.6);
+      background: #3a3a3a;
+    }
+
+    button {
+      background: linear-gradient(to right, #4a90e2, #357abd);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #357abd, #4a90e2);
+      transform: translateY(-2px);
+    }
+
+    .short-url {
+      margin-top: 25px;
+      font-size: 15px;
+      color: #ddd;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>🔗 Shorten Your URL</h1>
+    <form id="urlForm" action="/url" method="POST">
+      <input type="url" name="url" placeholder="Paste your long URL here..." required />
+      <button type="submit">✨ Generate Short Link</button>
+    </form>
+    <% if (shortId) { %>
+      <div class="short-url">
+        <a href="/<%= shortId %>" target="_blank">http://localhost:8000/<%= shortId %></a>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>
