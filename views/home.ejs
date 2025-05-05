@@ -78,13 +78,30 @@
       background: linear-gradient(to right, #357abd, #4a90e2);
       transform: translateY(-2px);
     }
-
+    
     .short-url {
       margin-top: 25px;
-      font-size: 15px;
-      color: #ddd;
-      word-break: break-all;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #06303f; 
+      padding: 10px 20px;
+      border-radius: 5px; /* Rounded corners */
+      display: inline-block;
+      text-decoration: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+      transition: background-color 0.3s, transform 0.3s ease;
     }
+
+    .short-url a {
+      color: #8aeffe;
+      text-decoration: none; 
+    }
+
+    .short-url:hover {
+      background-color: #003b51; 
+      transform: scale(1.035); 
+    }
+
   </style>
 </head>
 <body>
