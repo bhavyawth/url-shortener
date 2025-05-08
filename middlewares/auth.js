@@ -3,7 +3,6 @@ const { getUser } = require('../service/auth');
 async function restrictToLoggedinUserOnly (req, res, next) 
 {
   const openPaths = ['/login', '/signup'];
-
   // Allow unauthenticated access to login and signup
   if (openPaths.includes(req.path)) return next();
   
@@ -11,7 +10,7 @@ async function restrictToLoggedinUserOnly (req, res, next)
 
   if (!userUid) return res.redirect('/login');
   const user = getUser(userUid);
-
+  console.log(user);
   if (!user) return res.redirect('/login');
 
   req.user = user;

@@ -19,9 +19,23 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
     }
 
+    .page-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 40px;
+      max-width: 1000px;
+      width: 100%;
+      gap: 80px;
+    }
+
+
     .form-container {
+      flex: 1;
       background: #1f1f1f;
       padding: 40px 50px;
       border-radius: 20px;
@@ -31,10 +45,10 @@
       max-width: 450px;
       transition: transform 0.3s ease;
       color: #f1f1f1;
+      margin-bottom: 30px;
     }
 
     h1 {
-      padding-right: 2px;
       margin-bottom: 25px;
       font-size: 28px;
       color: #ffffff;
@@ -79,44 +93,80 @@
       background: linear-gradient(to right, #357abd, #4a90e2);
       transform: translateY(-2px);
     }
-    
+
     .short-url {
-      margin-top: 25px;
+      margin: 10px 0;
       font-size: 16px;
       font-weight: bold;
-      background-color: #06303f; 
+      background-color: #06303f;
       padding: 10px 20px;
-      border-radius: 5px; /* Rounded corners */
-      display: inline-block;
+      border-radius: 5px;
       text-decoration: none;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       transition: background-color 0.3s, transform 0.3s ease;
     }
 
     .short-url a {
       color: #8aeffe;
-      text-decoration: none; 
+      text-decoration: none;
     }
 
     .short-url:hover {
-      background-color: #003b51; 
-      transform: scale(1.035); 
+      background-color: #003b51;
+      transform: scale(1.035);
+    }
+
+
+    .url-heading {
+      font-size: 20px;
+      color: #f1f1f1;
+      margin-bottom: 10px;
+    }
+
+    .url-list-container {
+      flex: 1;
+      width: 100%;
+      max-width: 550px;
+      max-height: 500px;
+      overflow-y: auto; 
+      padding-right: 10px; /* Enables scrolling */
+      scrollbar-color: transparent transparent; /* Hidden by default */
+      transition: scrollbar-color 0.3s ease; /* Smooth transition for visibility */
+    }
+
+    .url-list-container:hover {
+      scrollbar-color: #4a90e2 #1f1f1f; /* Visible on hover */
     }
 
   </style>
 </head>
 <body>
+  <div class="page-container">
+
   <div class="form-container">
     <h1>🔗 Shorten Your URL</h1>
     <form id="urlForm" action="/url" method="POST">
       <input type="url" name="url" placeholder="Paste your long URL here..." required />
       <button type="submit">✨ Generate Short Link</button>
     </form>
-    <% if (locals.shortId) { %>
-      <div class="short-url">
-        <a href="/<%= shortId %>" target="_blank">http://localhost:8000/<%= shortId %></a>
-      </div>
+  </div>
+
+  <div class="url-list-container">
+    <h2 class="url-heading">Your Shortened URLs</h2>
+
+    <% if (urls && urls.length > 0) { %>
+      <% urls.forEach(url => { %>
+        <div class="short-url">
+          <a href="/<%= url.shortId %>" target="_blank">http://localhost:8000/<%= url.shortId %></a>
+          <br/>
+          <small>Original: <%= url.redirectURL %></small>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p style="color: #ddd;">You haven't shortened any URLs yet.</p>
     <% } %>
   </div>
+
+</div>
 </body>
 </html>
