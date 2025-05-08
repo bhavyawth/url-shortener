@@ -1,4 +1,3 @@
-
 function handleHome (req, res) {
   return res.render("home", {
     shortId: null,

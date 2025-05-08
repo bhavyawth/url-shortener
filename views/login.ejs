@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>URL Shortener</title>
+  <title>Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
@@ -29,21 +29,29 @@
       text-align: center;
       width: 100%;
       max-width: 450px;
-      transition: transform 0.3s ease;
       color: #f1f1f1;
     }
 
     h1 {
-      padding-right: 2px;
       margin-bottom: 25px;
       font-size: 28px;
       color: #ffffff;
     }
 
-    input[type="url"] {
+    .error-message {
+      background: #ff4d4d;
+      color: #fff;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
       width: 100%;
-      padding: 15px 20px;
-      margin-bottom: 25px;
+      padding: 14px 20px;
+      margin-bottom: 20px;
       border: none;
       border-radius: 12px;
       background: #2e2e2e;
@@ -52,11 +60,11 @@
       transition: box-shadow 0.3s ease, background 0.3s ease;
     }
 
-    input[type="url"]::placeholder {
+    input::placeholder {
       color: #aaa;
     }
 
-    input[type="url"]:focus {
+    input:focus {
       outline: none;
       box-shadow: 0 0 6px rgba(100, 181, 246, 0.6);
       background: #3a3a3a;
@@ -79,44 +87,23 @@
       background: linear-gradient(to right, #357abd, #4a90e2);
       transform: translateY(-2px);
     }
-    
-    .short-url {
-      margin-top: 25px;
-      font-size: 16px;
-      font-weight: bold;
-      background-color: #06303f; 
-      padding: 10px 20px;
-      border-radius: 5px; /* Rounded corners */
-      display: inline-block;
-      text-decoration: none;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-      transition: background-color 0.3s, transform 0.3s ease;
-    }
-
-    .short-url a {
-      color: #8aeffe;
-      text-decoration: none; 
-    }
-
-    .short-url:hover {
-      background-color: #003b51; 
-      transform: scale(1.035); 
-    }
 
   </style>
 </head>
 <body>
   <div class="form-container">
-    <h1>🔗 Shorten Your URL</h1>
-    <form id="urlForm" action="/url" method="POST">
-      <input type="url" name="url" placeholder="Paste your long URL here..." required />
-      <button type="submit">✨ Generate Short Link</button>
+    <h1>🔐 Log In</h1>
+
+    <form action="/login" method="POST">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+
+      <% if (error) { %>
+        <div class="error-message"><%= error %></div>
+      <% } %>
+      
+      <button type="submit">Login</button>
     </form>
-    <% if (locals.shortId) { %>
-      <div class="short-url">
-        <a href="/<%= shortId %>" target="_blank">http://localhost:8000/<%= shortId %></a>
-      </div>
-    <% } %>
   </div>
 </body>
 </html>

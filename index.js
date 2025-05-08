@@ -1,10 +1,15 @@
 const express = require('express');
-const urlRoute = require('./routes/url');
-const redirectRoute = require('./routes/redirect');
 const { connectToMongoDb } = require('./connection');
-const homeRoute = require('./routes/staticRouter');
 const path = require('path');
 
+//importing routes
+const urlRoute = require('./routes/url');
+const redirectRoute = require('./routes/redirect');
+const homeRoute = require('./routes/staticRouter');
+const userRoute = require('./routes/user');
+
+
+//created app instance
 const app = express();
 const PORT = 8001;
 
@@ -20,11 +25,13 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
 
-app.use('/', homeRoute);
+
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/', homeRoute);
 app.use('/', redirectRoute);
 app.use('/url', urlRoute);
+app.use('/', userRoute);
 
 app.listen(PORT, () => {
   console.log(`Server started at PORT: ${PORT}`);
