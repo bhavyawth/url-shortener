@@ -71,7 +71,6 @@
     }
 
     button {
-      background: linear-gradient(to right, #4a90e2, #357abd);
       color: white;
       border: none;
       padding: 14px 24px;
@@ -84,10 +83,17 @@
     }
 
     button:hover {
-      background: linear-gradient(to right, #357abd, #4a90e2);
       transform: translateY(-2px);
     }
+    
+    .login-button {
+      background: linear-gradient(to right, #4a90e2, #357abd);
+      margin-bottom: 16px;
+    }
 
+    .signup-button {
+      background: linear-gradient(to right, #cc3936, #d22308);
+    }
   </style>
 </head>
 <body>
@@ -101,8 +107,11 @@
       <% if (error) { %>
         <div class="error-message"><%= error %></div>
       <% } %>
-      
-      <button type="submit">Login</button>
+
+      <button type="submit" class="login-button">Login</button>
+      <button type="button" class="signup-button" 
+      onclick="window.location.href='/signup'">Sign Up Here</button>
+
     </form>
   </div>
 </body>

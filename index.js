@@ -1,6 +1,8 @@
 const express = require('express');
 const { connectToMongoDb } = require('./connection');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+const { restrictToLoggedinUserOnly } = require('./middlewares/auth');
 
 //importing routes
 const urlRoute = require('./routes/url');
@@ -25,12 +27,12 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
 
-
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', homeRoute);
+app.use('/', restrictToLoggedinUserOnly, homeRoute);
 app.use('/', redirectRoute);
-app.use('/url', urlRoute);
+app.use('/url', restrictToLoggedinUserOnly,  urlRoute);
 app.use('/', userRoute);
 
 app.listen(PORT, () => {
