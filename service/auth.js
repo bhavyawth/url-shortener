@@ -10,7 +10,8 @@ function setUser (user) {
   const token = jwt.sign({ userId, userName, email }, process.env.JWT_SECRET, {
     expiresIn: '1h',
   });
-
+  //and return it
+  // Set the token in a cookie
   return token;
 }
 

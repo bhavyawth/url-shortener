@@ -8,14 +8,17 @@ async function handleGenerateNewShortURL(req, res) {
     return res.status(400).json({ error: "url is required!" });
   }
   const shortId = nanoid(8);
-
+  console.log(req.user._id);
   await URL.create({
     shortId,
     redirectURL: url,
     visitHistory: [],
-    createdBy: req.user._id,
+    createdBy: req.user.userId,
   });
-  const userUrls = await URL.find({ createdBy: req.user._id });
+  const userUrls = await URL.find({ createdBy: req.user.userId });
+  if (!userUrls) {
+    return res.status(404).json({ error: "No URLs found!" });
+  }
   return res.render("home", {
     shortId,
     redirectURL: url,
